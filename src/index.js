@@ -1,3 +1,3 @@
-import {getAlltrailsLinks} from "./get-alltrails-links.js"
+import { getTrailCoordinates } from "./get-trail-coordinates";
 
-getAlltrailsLinks();
+getTrailCoordinates();
