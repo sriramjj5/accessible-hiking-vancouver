@@ -5,6 +5,7 @@ import cheerio from 'cheerio';
 import { getTrailLinks } from './get-trail-links';
 
 export async function getTrailCoordinates() {
+    let trails = [];
     const trailLinks = await getTrailLinks();
     for (const trailLink of trailLinks) {
         try {
@@ -21,14 +22,18 @@ export async function getTrailCoordinates() {
             const longitudeMatch = scriptContent.match(longitudePattern);
             const nameMatch = scriptContent.match(namePattern);
 
-            console.log(latitudeMatch[1]);
-            console.log(longitudeMatch[1]);
-            console.log(nameMatch[1].replace(/&#039;/g, "'"));
+            const lat = latitudeMatch[1];
+            const lon = longitudeMatch[1];
+            const name = nameMatch[1].replace(/&#039;/g, "'");
+
+            const trail = {name, lat, lon};
+
+            trails.push(trail);
 
         } catch (err) {
             console.log(err);
         }
     }
-    
+    return trails;
 };
 
